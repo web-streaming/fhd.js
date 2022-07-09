@@ -1,5 +1,5 @@
 {
-  "name": "fhdjs",
+  "name": "fhd.js",
   "version": "0.0.0",
   "description": "flv, hls, dash player",
   "main": "dist/umd/index.js",
@@ -12,7 +12,7 @@
     "src"
   ],
   "repository": {
-    "url": "https://github.com/web-streaming/fhdjs.git",
+    "url": "https://github.com/web-streaming/fhd.js.git",
     "type": "git"
   },
   "keywords": [
@@ -24,12 +24,13 @@
     "ll-dash",
     "streaming",
     "live",
+    "web streaming",
     "vod",
     "player",
     "audio",
     "video"
   ],
-  "homepage": "https://github.com/web-streaming/fhdjs",
+  "homepage": "https://github.com/web-streaming/fhd.js",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
