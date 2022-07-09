@@ -44,6 +44,7 @@ export interface LoadResult {
   stats: RequestStats;
   data: string | Object | Uint8Array;
   contentLength?: number;
+  contentType?: string;
   age?: number;
 }
 

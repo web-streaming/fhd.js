@@ -213,14 +213,14 @@ export class M3U8Parser {
         }
           break;
         case 'BYTERANGE': {
-          segment.byteRange = [0, 0];
+          segment.range = [0, 0];
           const bytes = val.split('@');
           if (bytes.length === 1) {
-            segment.byteRange[0] = prevSegment?.byteRange?.[1] || 0;
+            segment.range[0] = prevSegment?.range?.[1] || 0;
           } else {
-            segment.byteRange[0] = parseInt(bytes[1]);
+            segment.range[0] = parseInt(bytes[1]);
           }
-          segment.byteRange[1] = segment.byteRange[0] + parseInt(bytes[0]);
+          segment.range[1] = segment.range[0] + parseInt(bytes[0]);
         }
           break;
         case 'BITRATE':

@@ -21,6 +21,7 @@
     "isom",
     "lhls",
     "llhls",
+    "lowlatency",
     "Manifestor",
     "mdat",
     "mdhd",
@@ -38,6 +39,7 @@
     "RADL",
     "remux",
     "Remuxer",
+    "sidx",
     "SMHD",
     "soun",
     "stbl",
@@ -52,9 +54,11 @@
     "tkhd",
     "traf",
     "trak",
+    "transmuxer",
     "trex",
     "trun",
     "VMHD",
-    "vorbis"
+    "vorbis",
+    "xsdate"
   ]
 }

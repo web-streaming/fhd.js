@@ -3,13 +3,19 @@ import { DashSegment } from '../segment';
 import { SegmentFinder } from '../types';
 import { PresentationTimeline } from '../presentation-timeline';
 
-export class SegmentBase implements SegmentFinder {
+export class SegmentTemplate implements SegmentFinder {
   constructor(
+    private url: string,
     public presentationTimeline: PresentationTimeline,
-    private segments: DashSegment[],
+    private startNumber: number,
+    private periodStart: number,
+    private timeline?: [number, number][],
     private initSegment?: InitSegment,
   ) {
-    this.segments = segments;
+    this.presentationTimeline = presentationTimeline;
+    this.startNumber = startNumber;
+    this.periodStart = periodStart;
+    this.timeline = timeline;
     this.initSegment = initSegment;
   }
 

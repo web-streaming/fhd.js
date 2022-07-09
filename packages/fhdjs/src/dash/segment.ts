@@ -1,9 +1,11 @@
 import { Segment } from '../types';
 
-export class HlsSegment implements Segment {
+export class DashSegment implements Segment {
   url?: string;
 
   start = 0;
+
+  end = 0;
 
   duration = 0;
 
@@ -18,12 +20,4 @@ export class HlsSegment implements Segment {
   wallClockTime?: number;
 
   invalid?: boolean;
-
-  prefetch = false;
-
-  parts = [];
-
-  get end() {
-    return this.start + this.duration;
-  }
 }

@@ -1,87 +1,104 @@
-export interface Subtitle {
-  url: string;
-
-  language?: string;
-
-  name?: string;
-
-  default?: boolean;
-
-  characteristics?: string[];
+export enum StreamType {
+  VIDEO = 'video',
+  AUDIO = 'audio'
 }
 
-export interface Audio {
+export interface Url {
   url: string;
 
-  language?: string;
-
-  name?: string;
-
-  default?: boolean;
-
-  channels?: number;
-
-  codec?: string;
+  range?: [number, number];
 }
 
-export interface Segment {
-  url: string;
+export interface SegmentKey {
+  url?: string;
 
+  data?: Uint8Array;
+
+  iv?: Uint8Array;
+}
+
+export interface InitSegment extends Url {
+  key?: SegmentKey;
+}
+
+export interface SegmentPart extends Url {
+  last?: boolean;
+}
+
+export interface Segment extends Partial<Url> {
   start: number;
-
-  duration: number;
 
   end: number;
 
   sn: number;
 
-  periodId: number;
+  cc: any;
 
-  byteRange?: [number, number];
-
-  title?: string;
+  key?: SegmentKey
 
   wallClockTime?: number;
 
   invalid?: boolean;
+
+  last?: boolean;
 }
 
 export interface Stream {
-  url?: string;
+  type: StreamType;
 
-  totalDuration?: number;
+  url?: string;
 
   bitrate?: number;
 
-  codes?: string;
+  codecs?: string;
 
+  label?: string;
+
+  mimeType?: string;
+
+  default?: boolean;
+
+  lang?: string;
+}
+
+export interface VideoStream extends Stream {
   width?: number;
 
   height?: number;
 
   fps?: number;
 
-  videoCodec?: string;
+  sar?: [number, number];
+}
 
-  audioCodec?: string;
+export interface AudioStream extends Stream {
+  channels?: number;
 
-  audios: Audio[];
+  samplingRate?: number;
 }
 
 export interface Rendition {
-  dynamic: boolean;
+  live: boolean;
 
-  start?: number;
+  chunked?: boolean;
 
-  startPrecise?: boolean;
+  dvrWindow?: number;
 
-  segmentDuration?: number;
+  latency?: number;
 
-  delay?: number;
+  maxLatency?: number;
 
-  streams: Stream[];
+  minLatency?: number;
 
-  subtitles: Subtitle[];
+  minPlaybackRate?: number;
+
+  maxPlaybackRate?: number;
+
+  maxSegmentDuration?: number;
+
+  videoStreams: VideoStream[];
+
+  audioStreams: AudioStream[];
 }
 
 export enum StreamingType {
@@ -90,12 +107,35 @@ export enum StreamingType {
   DASH = 'dash'
 }
 
+export interface FullSegment {
+  video?: Segment;
+  audio?: Segment;
+}
+
 export interface Manifestor {
-  parse(): void;
+  rendition: Rendition;
 
-  getLiveEdgeSegment(delay?: number): Segment;
+  parse(text: string, url: string): Promise<Rendition>;
 
-  getSegmentByTime(time: number): Segment;
+  selectVideoStream(index: number): Promise<void>;
+
+  selectAudioStream(index: number): Promise<void>;
+
+  getLiveEdgeSegment(delay?: number): FullSegment;
+
+  getSegmentByTime(time?: number): FullSegment;
+
+  getNextSegment(segment: FullSegment): FullSegment;
+
+  getInitSegment(segment?: Segment): InitSegment | void;
+
+  getSegmentPart(segment: Segment, index: number): Promise<SegmentPart | undefined>;
 
   getSegmentBySn(sn: number): Segment;
+}
+
+export interface Chunk {
+  data?: Uint8Array;
+  key?: Uint8Array;
+  iv?: Uint8Array;
 }

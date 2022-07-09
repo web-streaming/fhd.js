@@ -2,7 +2,7 @@ const RE_ABSOLUTE_URL = /^(?:[a-zA-Z0-9+\-.]+:)?\/\//;
 const RE_URL_PAIR = /^((?:[a-zA-Z0-9+\-.]+:)?\/\/[^/?#]*)?([^?#]*\/)?([^/?#]*)?(\.[^/?#]*)?/;
 const RE_REL_URL = /^(\.{1,2}\/)+(.*)/;
 
-export function resolveUrl(baseUrl: string, relativeUrl: string): string {
+export function resolveUrl(baseUrl: string, relativeUrl: string | null | undefined): string {
   if (!relativeUrl) return baseUrl;
   if (!baseUrl || RE_ABSOLUTE_URL.test(relativeUrl)) return relativeUrl;
   const pairs = RE_URL_PAIR.exec(baseUrl);
@@ -28,4 +28,12 @@ export function resolveUrl(baseUrl: string, relativeUrl: string): string {
   }
 
   return pairs[1] + (path || '/') + relativeUrl;
+}
+
+export function getUrlExt(url: string): string {
+  const last = url.split('?')[0]?.split('/')?.pop();
+  if (!last) return '';
+  const pieces = last.split('.');
+  if (pieces.length <= 1) return '';
+  return pieces.pop()!.toLowerCase();
 }

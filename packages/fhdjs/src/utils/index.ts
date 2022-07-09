@@ -1,5 +1,6 @@
 export * from './env';
-export { resolveUrl } from './url';
+export * from './url';
+export * from './lru';
 
 export function binarySearch<T>(list: T[], compare: (item: T, index: number) => number): T | void {
   let lo = 0;

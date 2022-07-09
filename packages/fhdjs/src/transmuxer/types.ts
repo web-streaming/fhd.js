@@ -11,6 +11,10 @@ export interface Demuxer {
   demux(data: Uint8Array, discontinuity?: boolean, contiguous?: boolean, startTime?: number): DemuxerResult;
 }
 
+export interface Remuxer {
+  remux(): void;
+}
+
 export interface SPSInfo {
   codec: string;
   width: number;

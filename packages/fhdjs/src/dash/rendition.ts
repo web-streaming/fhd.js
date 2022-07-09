@@ -1,21 +1,31 @@
-import { Rendition, Subtitle } from '../types';
+import { Rendition } from '../types';
+import { PresentationTimeline } from './presentation-timeline';
+import { CombinedVideoStream, CombinedAudioStream } from './stream';
 
 export class DashRendition implements Rendition {
   dynamic = false;
 
-  start = 0;
+  chunked = false;
 
-  startPrecise?: boolean;
+  updateInterval = 0;
 
-  segmentDuration?: number;
+  dvrWindow = 0;
 
-  delay?: number;
+  latency = 0;
 
-  lhls = false;
+  maxLatency = 0;
 
-  llhls = false;
+  minLatency = 0;
 
-  streams = [];
+  minPlaybackRate = 1;
 
-  subtitles: Subtitle[] = [];
+  maxPlaybackRate = 1;
+
+  maxSegmentDuration = 0;
+
+  presentationTimeline = new PresentationTimeline();
+
+  videoStreams: CombinedVideoStream[] = [];
+
+  audioStreams: CombinedAudioStream[] = [];
 }

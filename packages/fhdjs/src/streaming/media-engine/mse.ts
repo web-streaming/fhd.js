@@ -1,4 +1,4 @@
-import { createPublicPromise, PublicPromise, Buffer } from './helper';
+import { createPublicPromise, PublicPromise, Buffer } from '../helper';
 
 type MimeSourceBuffer = SourceBuffer & { mimeType: string }
 

@@ -2,9 +2,7 @@ export class Buffer {
   static start(buf?: TimeRanges): number {
     if (!buf || !buf.length) return 0;
 
-    // Safari bug: https://bit.ly/2trx6O8
     if (buf.length === 1 && buf.end(0) - buf.start(0) < 1e-6) return 0;
-    // Edge bug: https://bit.ly/2JYLPeB
     if (buf.length === 1 && buf.start(0) < 0) return 0;
 
     return buf.start(0);
@@ -13,7 +11,6 @@ export class Buffer {
   static end(buf?: TimeRanges): number {
     if (!buf || !buf.length) return 0;
 
-    // Safari bug: https://bit.ly/2trx6O8
     if (buf.length === 1 && buf.end(0) - buf.start(0) < 1e-6) return 0;
 
     return buf.end(buf.length - 1);

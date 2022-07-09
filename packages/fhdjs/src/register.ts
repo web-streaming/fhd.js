@@ -1,14 +1,10 @@
 import { Manifestor } from './streaming';
 import { Demuxer, Remuxer } from './transmuxer';
 
-export class Player {
+export class Register {
   private manifestorMimeMap: Record<string, Manifestor> = Object.create(null);
 
   private manifestorExtMap: Record<string, Manifestor> = Object.create(null);
-
-  load(url: string) {
-
-  }
 
   getManifestorByMime(mime?: string): Manifestor | undefined {
     if (mime == null) return;
